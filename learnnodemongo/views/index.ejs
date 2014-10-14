@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body ng-app="appModule">
+  	<div ng-controller="AppController">
+  		<h1><%= title %></h1>
+	    <p>Welcome to <%= title %></p>
+
+	    <div class="list-group">
+	    	<a href="#/{{ job._id }}" class="list-group-item" ng-repeat="job in jobs">
+	    		<h4 class="list-group-item-heading">{{ job.title }}</h4>
+	    		<p class="list-group-item-text">{{ job.description }}</p>
+	    	</a>
+	    </div>
+  	</div>
+    
+  </body>
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/app/app.js"></script>
+</html>

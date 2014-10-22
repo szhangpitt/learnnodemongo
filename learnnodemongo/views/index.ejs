@@ -9,6 +9,12 @@
       <h1><%= title %></h1>
       <p>Welcome to <%= title %></p>
 
+      <form action="api/upload" method="post" enctype="multipart/form-data">
+        <input type="text" name="theName">
+        <input type="file" name="theFile">
+        <input type="submit">
+      </form>
+
       <div class="list-group">
         <a href="#/{{ job._id }}" class="list-group-item" ng-repeat="job in jobs">
            <h4 class="list-group-item-heading">{{ job.title }}</h4>

@@ -1,5 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var formidable = require('formidable');
+var util = require('util');
+
+router.post('/upload', function(req, res) {
+	var form = new formidable.IncomingForm();
+
+	form.parse(req, function(err, fields, files) {
+		res.writeHead(200, {'content-type': 'text/plain'});
+		res.write('received upload: \n\n');
+		res.end(util.inspect({fields: fields, files: files}));
+	});
+
+	return;
+});
+
 
 /* GET all jobs. */
 router.get('/jobs', function(req, res) {

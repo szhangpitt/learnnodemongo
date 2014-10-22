@@ -13,9 +13,11 @@
     "ejs": "~0.8.5",
     "express": "~4.2.0",
     "express-session": "^1.8.2",
+    "formidable": "^1.0.15",
     "mongodb": "*",
     "monk": "*",
     "morgan": "~1.0.0",
+    "multer": "^0.1.6",
     "static-favicon": "~1.0.0"
   }
 }

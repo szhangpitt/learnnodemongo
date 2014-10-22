@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var mongo = require('mongodb');
 var monk = require('monk');
@@ -15,6 +16,13 @@ var api = require('./routes/api');
 
 var app = express();
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,POST');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -24,12 +32,28 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(session({secret: 'keyboard cat'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
     req.db = db;
     next();
 });
+
+app.use(allowCrossDomain);
+
+// app.use(function (req, res, next) {
+//   var n = req.session.views || 0;
+//   req.session.views = ++n;
+//   res.end(n + ' views');
+//   next();
+// });
+
+app.use(function (req, res, next) {
+  req.sess = req.session;
+  next();
+});
+
 
 app.use('/', routes);
 app.use('/users', users);

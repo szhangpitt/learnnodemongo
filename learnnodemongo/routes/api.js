@@ -8,9 +8,15 @@ router.post('/upload', function(req, res) {
 	var form = new formidable.IncomingForm({uploadDir: global.appRoot + '/uploaded', keepExtensions: true });
 
 	form.parse(req, function(err, fields, files) {
-		res.writeHead(200, {'content-type': 'text/plain'});
-		res.write('received upload: \n\n');
-		res.end(util.inspect({fields: fields, files: files}));
+		/*if(fields.fromPage) {
+			res.redirect(fields.fromPage)
+		}
+		else */{
+			res.writeHead(200, {'content-type': 'text/plain'});
+			res.write('received upload: \n\n');
+			res.end(util.inspect({err: err, fields: fields, files: files}));
+		}
+		
 	});
 
 	return;

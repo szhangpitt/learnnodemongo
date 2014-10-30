@@ -4,9 +4,13 @@ var app = require('../app');
 var path = require('path');
 
 global.appRoot = path.resolve(__dirname);
-console.log(global.appRoot);
+global.publicRoot = path.resolve('./public');
+
+console.log(global.publicRoot);
 
 app.set('port', process.env.PORT || 3000);
+
+global.serverPublicRoot = 'http://localhost:' + app.get('port');
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);

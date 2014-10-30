@@ -3,9 +3,12 @@ var router = express.Router();
 var formidable = require('formidable');
 var util = require('util');
 var fs = require('fs');
+var lwip = require('lwip');
+var request = require('request');
+var im = require('imagemagick-stream');
 
 router.post('/upload', function(req, res) {
-	var form = new formidable.IncomingForm({uploadDir: global.appRoot + '/uploaded', keepExtensions: true });
+	var form = new formidable.IncomingForm({uploadDir: global.publicRoot + '/tmp', keepExtensions: true });
 
 	form.parse(req, function(err, fields, files) {
 		/*if(fields.fromPage) {
@@ -14,6 +17,7 @@ router.post('/upload', function(req, res) {
 		else */{
 			res.writeHead(200, {'content-type': 'text/plain'});
 			res.write('received upload: \n\n');
+			console.log(util.inspect({err: err, fields: fields, files: files}));
 			res.end(util.inspect({err: err, fields: fields, files: files}));
 		}
 		
@@ -22,6 +26,53 @@ router.post('/upload', function(req, res) {
 	return;
 });
 
+router.get('/blur', function(req, res) {
+	// var originalImageSrc = req.params.src;
+	var originalImageSrc = 'https://unsplash.imgix.net/uploads/1412825195419af52b492/8bc72ed7?q=75&fm=jpg&s=4f35827a6dc766d393fc51fce493d85d';
+	// console.log('blur', req.params);
+	request({url: originalImageSrc, encoding: null}, function(error, response, body) {
+		fs.writeFile(global.publicRoot + '/tmp/' + 'doodle1.jpg', body, function(err) {
+			fs.readFile(global.publicRoot + '/tmp/' + 'doodle1.jpg', function(err, buffer){
+				lwip.open(buffer, 'jpg', function(err, image){
+					console.log(err);
+				    image.batch().scale(0.5).blur(8)
+					.writeFile(global.publicRoot + '/tmp/' + 'blurred.jpg', function(err) {
+						res.download(global.publicRoot + '/tmp/' + 'blurred.jpg');
+					});
+				});
+			});
+			
+		})
+		
+	});
+	// .pipe(fs.createWriteStream(global.publicRoot + '/tmp/' + 'doodle.png'));
+	// .pipe(res);
+
+});
+
+router.get('/blur2', function(req, res) {
+	var originalImageSrc = decodeURIComponent(req.param('src'));
+	var blurAmount = parseInt(req.param('blurAmount'));
+	console.log(originalImageSrc);
+	// var originalImageSrc = 'https://unsplash.imgix.net/uploads/1412825195419af52b492/8bc72ed7?q=75&fm=jpg&s=4f35827a6dc766d393fc51fce493d85d';
+	// console.log('blur2', req);
+	request({url: originalImageSrc, encoding: null}, function(error, response, body) {
+		var time = new Date().getTime() + '';
+		var folder = global.publicRoot + '/tmp/';
+		fs.writeFile(folder + time + '_' + 'original.jpg', body, function(err) {
+			fs.readFile(folder + time + '_' + 'original.jpg', function(err, buffer){
+				lwip.open(buffer, 'jpg', function(err, image){
+					console.log(err);
+				    image.batch().scale(0.5).blur(blurAmount)
+					.writeFile(folder + time + '_' + 'blurred.jpg', function(err) {
+						res.json({src: global.serverPublicRoot + '/tmp/' + time + '_' + 'blurred.jpg'});
+					});
+				});
+			});
+			
+		})
+	});
+});
 
 /* GET all jobs. */
 router.get('/jobs', function(req, res) {

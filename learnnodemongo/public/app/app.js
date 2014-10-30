@@ -3,11 +3,11 @@ angular.module('appModule', [])
 .controller('AppController', ['$scope', 'JobService', 
 	function getAllJobs($scope, JobService) {
 		
-		JobService.getAllJobs()
-		.success(function(data, status, headers, config) {
-			console.log(data, status, headers, config);
-			$scope.jobs = data;
-		});
+		// JobService.getAllJobs()
+		// .success(function(data, status, headers, config) {
+		// 	console.log(data, status, headers, config);
+		// 	$scope.jobs = data;
+		// });
 	
 }])
 
@@ -47,3 +47,31 @@ angular.module('appModule', [])
     }
   }
 })
+
+.directive('blurImg', ['$http', function ($http) {
+	return {
+		restrict: 'A',
+		scope: {
+			bluramount: '@'
+		},
+		link: function (scope, element, attrs) {
+			element.css({'max-width': '100%'});
+			
+			var blurAmount = scope.bluramount || 5;
+			var src = encodeURIComponent(element[0].src);
+			console.log(src, element);
+			$http({
+			    url: 'api/blur2', 
+			    method: "GET",
+			    params: {src: src, blurAmount: blurAmount}
+			 }).success(function(data) {
+			 	console.log(data);
+			 	element.attr('src', data.src);
+
+			 });
+			// $http.get('api/blur2?src=' + src + '&blurAmount=' + blurAmount).then(function(response) {
+			// 	console.log(response.data);
+			// })
+		}
+	};
+}])

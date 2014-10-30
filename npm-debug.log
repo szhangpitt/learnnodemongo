@@ -1,17 +1,62 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
-2 info using npm@1.4.14
-3 info using node@v0.10.29
-4 error install Couldn't read dependencies
-5 error package.json ENOENT, open '/Users/shaopengzhang/workspace/learnnodemongo/package.json'
-5 error package.json This is most likely not a problem with npm itself.
-5 error package.json npm can't find a package.json file in your current directory.
-6 error System Darwin 13.4.0
-7 error command "node" "/usr/local/bin/npm" "install"
-8 error cwd /Users/shaopengzhang/workspace/learnnodemongo
-9 error node -v v0.10.29
-10 error npm -v 1.4.14
-11 error path /Users/shaopengzhang/workspace/learnnodemongo/package.json
-12 error code ENOPACKAGEJSON
-13 error errno 34
-14 verbose exit [ 34, true ]
+1 verbose cli [ 'C:\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'multer',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.9
+3 info using node@v0.10.28
+4 verbose node symlink C:\nodejs\\node.exe
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'multer', null ]
+7 verbose cache add name=undefined spec="multer" args=["multer",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'multer',
+8 verbose parsed url   path: 'multer',
+8 verbose parsed url   href: 'multer' }
+9 silly lockFile f75d3261-multer multer
+10 verbose lock multer C:\Users\zhansh00\AppData\Roaming\npm-cache\f75d3261-multer.lock
+11 silly lockFile f75d3261-multer multer
+12 silly lockFile f75d3261-multer multer
+13 verbose addNamed [ 'multer', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile 12cfa37d-multer multer@
+16 verbose lock multer@ C:\Users\zhansh00\AppData\Roaming\npm-cache\12cfa37d-multer.lock
+17 silly addNameRange { name: 'multer', range: '*', hasData: false }
+18 verbose url raw multer
+19 verbose url resolving [ 'https://registry.npmjs.org/', './multer' ]
+20 verbose url resolved https://registry.npmjs.org/multer
+21 info trying registry request attempt 1 at 11:48:57
+22 http GET https://registry.npmjs.org/multer
+23 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+24 info trying registry request attempt 2 at 11:49:28
+25 http GET https://registry.npmjs.org/multer
+26 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+27 info trying registry request attempt 3 at 11:50:49
+28 http GET https://registry.npmjs.org/multer
+29 silly lockFile 12cfa37d-multer multer@
+30 silly lockFile 12cfa37d-multer multer@
+31 error network connect ETIMEDOUT
+31 error network This is most likely not a problem with npm itself
+31 error network and is related to network connectivity.
+31 error network In most cases you are behind a proxy or have bad network settings.
+31 error network
+31 error network If you are behind a proxy, please make sure that the
+31 error network 'proxy' config is set properly.  See: 'npm help config'
+32 error System Windows_NT 6.1.7601
+33 error command "C:\\nodejs\\\\node.exe" "C:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "multer" "--save"
+34 error cwd D:\workspace\hub\learnnodemongo\learnnodemongo
+35 error node -v v0.10.28
+36 error npm -v 1.4.9
+37 error syscall connect
+38 error code ETIMEDOUT
+39 error errno ETIMEDOUT
+40 verbose exit [ 1, true ]

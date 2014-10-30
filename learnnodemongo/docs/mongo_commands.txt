@@ -1,5 +1,0 @@
-mongod --dbpath /Users/shaopengzhang/workspace/learnnodemongo/learnnodemongo/data
-mongo
-
-mongod --dbpath d:\workspace\hub\learnnodemongo\learnnodemongo\data
-
